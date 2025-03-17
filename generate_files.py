@@ -8,8 +8,9 @@ def write_in_file():
 
     matrix_size: int = get_matrix_size()
     info: int = type_selection_of_matrix()
+    count_of_files: int = 3
 
-    for number_of_file in range(3):
+    for number_of_file in range(count_of_files):
         try:
             with open(f'{dir_name}/{number_of_file + 1}.txt', mode='w+', encoding='utf-8') as file:
                 # можно генерировать симметричную и ассиметричная матрицу
