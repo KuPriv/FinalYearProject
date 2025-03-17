@@ -4,7 +4,7 @@ from xmlrpc.client import MAXINT
 import read_from_file
 
 
-def distance(way, matrix):
+def calc_distance(way, matrix):
     return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + matrix[way[-1]][way[0]]
 
 
@@ -15,7 +15,7 @@ def bruteforce(matrix):
     best_way = None
 
     for combination in permutations(cities):
-        cur_dist = distance(combination, matrix)
+        cur_dist = calc_distance(combination, matrix)
         if cur_dist < min_dist:
             min_dist = cur_dist
             best_way = combination
