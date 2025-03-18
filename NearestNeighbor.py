@@ -1,7 +1,7 @@
 import read_from_file
 
 
-def nearest_neighbor(matrix):
+def nearest_neighbor(matrix) -> tuple:
     n = len(matrix)
     visited = [False] * n
     visited[0] = True
@@ -9,13 +9,12 @@ def nearest_neighbor(matrix):
 
     for _ in range(n - 1):
         last_city = way[-1]
-        nearest_city = min([(i, matrix[last_city][i]) for i in range(n)
-                            if not visited[i]], key=lambda x: x[1])[0]
+        nearest_city = [(i, matrix[last_city][i]) for i in range(n) if not visited[i]]
+        nearest_city = min(nearest_city, key= lambda x: x[1])[0]
         way.append(nearest_city)
         visited[nearest_city] = True
 
-    way.append(0)
-    distance = sum(matrix[way[i]][way[i+1]] for i in range(n))
+    distance = sum(matrix[way[i]][way[i+1]] for i in range(n - 1)) + matrix[way[-1]][way[0]]
     return way, distance
 
 
