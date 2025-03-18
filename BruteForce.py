@@ -4,11 +4,11 @@ from xmlrpc.client import MAXINT
 import read_from_file
 
 
-def calc_distance(way, matrix):
+def calc_distance(way, matrix) -> int:
     return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + matrix[way[-1]][way[0]]
 
 
-def bruteforce(matrix):
+def bruteforce(matrix) -> tuple:
     n: int = len(matrix)
     cities = list(range(n))
     min_dist: int = MAXINT
