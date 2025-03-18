@@ -15,15 +15,13 @@ def monte_carlo(matrix, iters: int) -> tuple:
     best_way = None
 
     for _ in range(iters):
-        current_way = cities[:]
+        way = cities[:]
         # shuffle - из библиотеки random, работает быстрее, так как локальная область видимости
-        shuffle(current_way)
-        cur_dist = calc_distance(current_way, matrix)
+        shuffle(way)
+        cur_dist = calc_distance(way, matrix)
         if cur_dist < min_dist:
             min_dist = cur_dist
-            print(best_way)
-            print(current_way)
-            best_way = current_way[:]
+            best_way = way
 
     return best_way, min_dist
 
