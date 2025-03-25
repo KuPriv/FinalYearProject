@@ -19,8 +19,8 @@ def nearest_neighbor(matrix) -> tuple:
 
 
 def main() -> None:
-    matrix = read_from_file.main()
-    for matrix in matrix:
+    matrices = read_from_file.main()
+    for matrix in matrices:
         way, distance = nearest_neighbor(matrix)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)

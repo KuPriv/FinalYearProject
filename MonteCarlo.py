@@ -18,6 +18,7 @@ def monte_carlo(matrix, iters: int) -> tuple:
         way = cities[:]
         # shuffle - из библиотеки random, работает быстрее, так как локальная область видимости
         shuffle(way)
+        way[way.index(0)], way[0] = way[0], way[way.index(0)]
         cur_dist = calc_distance(way, matrix)
         if cur_dist < min_dist:
             min_dist = cur_dist
@@ -26,8 +27,8 @@ def monte_carlo(matrix, iters: int) -> tuple:
     return best_way, min_dist
 
 def main() -> None:
-    matrix = read_from_file.main()
-    for matrix in matrix:
+    matrices = read_from_file.main()
+    for matrix in matrices:
         way, distance = monte_carlo(matrix, iters=10000)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
