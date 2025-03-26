@@ -2,6 +2,7 @@ import read_from_file
 
 
 def nearest_neighbor(matrix) -> tuple:
+    print(matrix)
     n = len(matrix)
     visited = [False] * n
     visited[0] = True

@@ -8,10 +8,10 @@ def calc_distance(way, matrix) -> float:
     return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + + matrix[way[-1]][way[0]]
 
 
-def markov_chain(N, matrix) -> tuple:
+def markov_chain(matrix, n) -> tuple:
     cur_state = 0
     way = [0]
-    unvisited = set(range(N))
+    unvisited = set(range(n))
     unvisited.remove(cur_state)
 
     while unvisited:
@@ -34,7 +34,7 @@ def monte_carlo(matrix: list, iters: int) -> tuple:
     best_way = None
 
     for _ in range(iters):
-        way, dist = markov_chain(n, matrix)
+        way, dist = markov_chain(matrix, n)
         if dist < min_dist:
             min_dist = dist
             best_way = way
