@@ -1,3 +1,4 @@
+import time
 from itertools import permutations
 from xmlrpc.client import MAXINT
 
@@ -8,6 +9,17 @@ def calc_distance(way, matrix) -> int:
     return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + matrix[way[-1]][way[0]]
 
 
+def time_counter(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        res = func(*args, **kwargs)
+        end = time.time()
+        print(end - start)
+        return res
+    return wrapper
+
+
+@time_counter
 def bruteforce(matrix) -> tuple:
     n: int = len(matrix)
     cities = list(range(n))

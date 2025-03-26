@@ -1,6 +1,19 @@
+import time
+
 import read_from_file
 
 
+def time_counter(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        res = func(*args, **kwargs)
+        end = time.time()
+        print(end - start)
+        return res
+    return wrapper
+
+
+@time_counter
 def nearest_neighbor(matrix) -> tuple:
     print(matrix)
     n = len(matrix)

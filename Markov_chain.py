@@ -1,3 +1,4 @@
+import time
 from random import choices
 from xmlrpc.client import MAXINT
 
@@ -28,6 +29,18 @@ def markov_chain(matrix, n) -> tuple:
     dist = calc_distance(way, matrix)
     return way, dist
 
+
+def time_counter(func):
+    def wrapper(*args, **kwargs):
+        start = time.time()
+        res = func(*args, **kwargs)
+        end = time.time()
+        print(end - start)
+        return res
+    return wrapper
+
+
+@time_counter
 def monte_carlo(matrix: list, iters: int) -> tuple:
     n: int = len(matrix)
     min_dist: int = MAXINT
