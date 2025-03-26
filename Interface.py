@@ -178,23 +178,19 @@ class MyInterface(QtWidgets.QMainWindow):
 
     @_time_decorator
     def brute_force(self):
-        way, distance = imported_bruteforce(self.matrix)
-        return way, distance
+        return imported_bruteforce(self.matrix)
 
     @_time_decorator
     def nearest_neighbor(self):
-        way, distance = imported_nearest_neighbor(self.matrix)
-        return way, distance
+        return imported_nearest_neighbor(self.matrix)
 
     @_time_decorator
     def monte_carlo(self):
-        way, distance = imported_monte_carlo(self.matrix, iters=10000)
-        return way, distance
+        return imported_monte_carlo(self.matrix, iters=10000)
 
     @_time_decorator
     def markov_chain(self):
-        way, distance = imported_markov_chain(self.matrix, iters=10000)
-        return way, distance
+        return imported_markov_chain(self.matrix, iters=10000)
 
 
 def main():
