@@ -19,7 +19,7 @@ class MyInterface(QtWidgets.QMainWindow):
         super().__init__()
         self.matrix = None
         self.setWindowTitle("Построение маршрутов")
-        self.setGeometry(700, 400, 400, 200)
+        self.setGeometry(700, 400, 300, 200)
         self.UI()
 
     def UI(self) -> None:
@@ -82,12 +82,12 @@ class MyInterface(QtWidgets.QMainWindow):
         QtWidgets.QMessageBox.information(self, "Успешно",
                                           "Файлы сгенерированы.")
 
-    def select_file(self, algorithm):
+    def select_file(self, algorithm) -> None:
         options = QtWidgets.QFileDialog.Options()
         dir = os.path.join(os.getcwd(), "generated_files_for_interface")
         file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-            "Выберите файл с городами", dir,
-            "Text Files (*.txt);;All Files (*)", options=options)
+            "Выберите файл с городами", dir,"Text Files (*.txt);;All Files (*)",
+                                                        options=options)
         if file:
             self.run_algorithm(algorithm, file)
 
