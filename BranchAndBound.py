@@ -15,7 +15,7 @@ def time_counter(func):
 
 
 @time_counter
-def branch_and_bound_tsp(matrix: list) -> tuple:
+def branch_and_bound(matrix: list) -> tuple:
     n = len(matrix)
     min_dist: int = MAXINT
     best_way = None
