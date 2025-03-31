@@ -14,8 +14,7 @@ def time_counter(func):
 
 
 @time_counter
-def nearest_neighbor(matrix) -> tuple:
-    print(matrix)
+def nearest_neighbor(matrix: list) -> tuple:
     n = len(matrix)
     visited = [False] * n
     visited[0] = True
