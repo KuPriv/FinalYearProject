@@ -41,7 +41,7 @@ def branch_and_bound(matrix: list) -> tuple:
 def main() -> None:
     matrices = read_from_file.main()
     for matrix in matrices:
-        way, distance = branch_and_bound_tsp(matrix)
+        way, distance = branch_and_bound(matrix)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
 

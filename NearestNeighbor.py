@@ -35,8 +35,9 @@ def main() -> None:
     matrices = read_from_file.main()
     for matrix in matrices:
         way, distance = nearest_neighbor(matrix)
-        print("Лучший маршрут:", way)
-        print("Кратчайшее расстояние:", distance)
+        # print("Лучший маршрут:", way)
+        # print("Кратчайшее расстояние:", distance)
+        print(distance)
 
 
 if __name__ == "__main__":
