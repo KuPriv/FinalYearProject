@@ -86,7 +86,7 @@ class MyInterface(QtWidgets.QMainWindow):
         options = QtWidgets.QFileDialog.Options()
         dir = os.path.join(os.getcwd(), "generated_files_for_interface")
         file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-            "Выберите файл с городами", dir,"Text Files (*.txt);;All Files (*)",
+            "Выберите файл с городами", dir, "Text Files (*.txt);;All Files (*)",
                                                         options=options)
         if file:
             self.run_algorithm(algorithm, file)
