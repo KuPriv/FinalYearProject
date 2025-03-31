@@ -12,6 +12,7 @@ from NearestNeighbor import nearest_neighbor as imported_nearest_neighbor
 from MonteCarlo import monte_carlo as imported_monte_carlo
 from BruteForce import bruteforce as imported_bruteforce
 from Markov_chain import monte_carlo as imported_markov_chain
+from BranchAndBound import branch_and_bound as imported_branch_and_bound
 
 
 class MyInterface(QtWidgets.QMainWindow):
@@ -54,6 +55,10 @@ class MyInterface(QtWidgets.QMainWindow):
         self.markov_chain_button = QtWidgets.QPushButton("Цепи Маркова")
         self.markov_chain_button.clicked.connect(lambda: self.select_file('markov_chain'))
         button_layout.addWidget(self.markov_chain_button)
+
+        self.branch_and_bound_button = QtWidgets.QPushButton("Ветвей и Границ")
+        self.branch_and_bound_button.clicked.connect(lambda: self.select_file('branch_and_bound'))
+        button_layout.addWidget(self.branch_and_bound_button)
 
         main_layout.addLayout(button_layout)
         centre.setLayout(main_layout)
@@ -111,6 +116,8 @@ class MyInterface(QtWidgets.QMainWindow):
             way, distance = self.monte_carlo()
         elif algorithm == 'markov_chain':
             way, distance = self.markov_chain()
+        elif algorithm == 'branch_and_bound':
+            way, distance = self.branch_and_bound()
         else:
             QtWidgets.QMessageBox.warning(self, "Ошибка", "Что-то пошло не так)")
             return
@@ -192,6 +199,9 @@ class MyInterface(QtWidgets.QMainWindow):
     def markov_chain(self):
         return imported_markov_chain(self.matrix, iters=10000)
 
+    @_time_decorator
+    def branch_and_bound(self):
+        return imported_branch_and_bound(self.matrix)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
