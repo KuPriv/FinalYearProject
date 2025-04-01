@@ -41,7 +41,7 @@ def time_counter(func):
 
 
 @time_counter
-def monte_carlo(matrix: list, iters: int) -> tuple:
+def solution(matrix: list, iters: int) -> tuple:
     n: int = len(matrix)
     min_dist: int = MAXINT
     best_way = None
@@ -61,8 +61,9 @@ def main() -> None:
 
     for matrix in matrices:
         way, distance = monte_carlo(matrix, iters)
-        print("Лучший маршрут:", way)
-        print("Кратчайшее расстояние:", distance)
+        # print("Лучший маршрут:", way)
+        # print("Кратчайшее расстояние:", distance)
+        #print(distance)
 
 
 if __name__ == "__main__":
