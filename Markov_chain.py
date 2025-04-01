@@ -60,10 +60,9 @@ def main() -> None:
     iters = 10000
 
     for matrix in matrices:
-        way, distance = monte_carlo(matrix, iters)
-        # print("Лучший маршрут:", way)
-        # print("Кратчайшее расстояние:", distance)
-        #print(distance)
+        way, distance = solution(matrix, iters)
+        print("Лучший маршрут:", way)
+        print("Кратчайшее расстояние:", distance)
 
 
 if __name__ == "__main__":
