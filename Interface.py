@@ -11,7 +11,7 @@ import time
 from NearestNeighbor import nearest_neighbor as imported_nearest_neighbor
 from MonteCarlo import monte_carlo as imported_monte_carlo
 from BruteForce import bruteforce as imported_bruteforce
-from Markov_chain import monte_carlo as imported_markov_chain
+from Markov_chain import solution as imported_markov_chain
 from BranchAndBound import branch_and_bound as imported_branch_and_bound
 
 
