@@ -44,12 +44,12 @@ def generate_matrix(matrix_size: int, info: int) -> list[list[int]] | None:
         generate_matrix(matrix_size)
 
 
-def generate_asymmetrical_matrix(n: int) -> list:
-    return [[randint(1, 101) if i != j else float('inf') for i in range(n)] for j in range(n)]
+def generate_asymmetrical_matrix(n: int) -> list[list[int]]:
+    return [[randint(1, 101) if i != j else 0 for i in range(n)] for j in range(n)]
 
 
-def generate_symmetrical_matrix(n: int) -> list:
-    matrix: list = [[float('inf')  for j in range(n)] for i in range(n)]
+def generate_symmetrical_matrix(n: int) -> list[list[int]]:
+    matrix: list[list[int]] = [[0 for j in range(n)] for i in range(n)]
     for i in range(n):
         for j in range(i + 1, n):
             temp = randint(1, 101)
