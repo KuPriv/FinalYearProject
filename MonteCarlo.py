@@ -5,10 +5,6 @@ from xmlrpc.client import MAXINT
 import read_from_file
 
 
-def calc_distance(way, matrix) -> int:
-    return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + matrix[way[-1]][way[0]]
-
-
 def time_counter(func):
     def wrapper(*args, **kwargs):
         start = time.time()
@@ -19,7 +15,7 @@ def time_counter(func):
     return wrapper
 
 
-@time_counter
+#@time_counter
 def monte_carlo(matrix, iters: int) -> tuple:
     n = len(matrix)
     cities = list(range(n))
@@ -38,12 +34,18 @@ def monte_carlo(matrix, iters: int) -> tuple:
 
     return best_way, min_dist
 
+
+def calc_distance(way, matrix) -> int:
+    return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + matrix[way[-1]][way[0]]
+
+
 def main() -> None:
     matrices = read_from_file.main()
     for matrix in matrices:
-        way, distance = monte_carlo(matrix, iters=10000)
-        print("Лучший маршрут:", way)
-        print("Кратчайшее расстояние:", distance)
+        way, distance = monte_carlo(matrix, iters=30000)
+        # print("Лучший маршрут:", way)
+        # print("Кратчайшее расстояние:", distance)
+        print(distance)
 
 
 if __name__ == "__main__":
