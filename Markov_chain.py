@@ -1,3 +1,4 @@
+import math
 import time
 from random import choices
 from xmlrpc.client import MAXINT
@@ -5,11 +6,11 @@ from xmlrpc.client import MAXINT
 import read_from_file
 
 
-def calc_distance(way, matrix) -> float:
+def calc_distance(way, matrix) -> int:
     return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + + matrix[way[-1]][way[0]]
 
 
-def markov_chain(matrix, n) -> tuple:
+def markov_chain(matrix, n, alpha: float = 1.0) -> tuple:
     cur_state = 0
     way = [0]
     unvisited = set(range(n))
@@ -17,7 +18,7 @@ def markov_chain(matrix, n) -> tuple:
 
     while unvisited:
         available_states = list(unvisited)
-        weights = [1 / matrix[cur_state][j] for j in available_states]
+        weights = [math.exp(-alpha * matrix[cur_state][j]) for j in available_states]
         sum_weight = sum(weights)
         calc_weights = [w / sum_weight for w in weights]
 
@@ -61,8 +62,9 @@ def main() -> None:
 
     for matrix in matrices:
         way, distance = solution(matrix, iters)
-        print("Лучший маршрут:", way)
-        print("Кратчайшее расстояние:", distance)
+        # print("Лучший маршрут:", way)
+        # print("Кратчайшее расстояние:", distance)
+        print(distance)
 
 
 if __name__ == "__main__":
