@@ -3,10 +3,10 @@ from random import randint
 
 
 def write_in_file():
-    dir_name: str = 'generated_files'
+    matrix_size: int = get_matrix_size()
+    dir_name: str = 'generated_files/' + str(matrix_size)
     os.makedirs(dir_name, exist_ok=True)
 
-    matrix_size: int = get_matrix_size()
     info: int = type_selection_of_matrix()
     count_of_files: int = 5
 
