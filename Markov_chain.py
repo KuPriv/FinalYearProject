@@ -3,7 +3,7 @@ import time
 from random import choices
 from xmlrpc.client import MAXINT
 
-import read_from_file
+from UI import UI
 
 
 def time_counter(func):
@@ -57,7 +57,7 @@ def calc_distance(way, matrix) -> int:
 
 
 def main() -> None:
-    matrices = read_from_file.main()
+    matrices = UI()
     iters = 10000
 
     for matrix in matrices:

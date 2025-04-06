@@ -2,7 +2,7 @@ import time
 from random import shuffle
 from xmlrpc.client import MAXINT
 
-import read_from_file
+from UI import UI
 
 
 def time_counter(func):
@@ -40,7 +40,7 @@ def calc_distance(way, matrix) -> int:
 
 
 def main() -> None:
-    matrices = read_from_file.main()
+    matrices = UI()
     for matrix in matrices:
         way, distance = monte_carlo(matrix, iters=30000)
         # print("Лучший маршрут:", way)

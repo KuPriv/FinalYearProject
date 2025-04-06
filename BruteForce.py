@@ -2,7 +2,7 @@ import time
 from itertools import permutations
 from xmlrpc.client import MAXINT
 
-import read_from_file
+from UI import UI
 
 
 def calc_distance(way, matrix) -> int:
@@ -36,11 +36,12 @@ def bruteforce(matrix) -> tuple:
 
 
 def main() -> None:
-    matrices = read_from_file.main()
+    matrices = UI()
     for matrix in matrices:
         way, distance = bruteforce(matrix)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
+        #print(distance)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 import time
 
-import read_from_file
+from UI import UI
 
 
 def time_counter(func):
@@ -13,7 +13,7 @@ def time_counter(func):
     return wrapper
 
 
-@time_counter
+#@time_counter
 def nearest_neighbor(matrix: list) -> tuple:
     n = len(matrix)
     visited = [False] * n
@@ -32,11 +32,12 @@ def nearest_neighbor(matrix: list) -> tuple:
 
 
 def main() -> None:
-    matrices = read_from_file.main()
+    matrices = UI()
     for matrix in matrices:
         way, distance = nearest_neighbor(matrix)
-        print("Лучший маршрут:", way)
-        print("Кратчайшее расстояние:", distance)
+        # print("Лучший маршрут:", way)
+        # print("Кратчайшее расстояние:", distance)
+        print(distance)
 
 
 if __name__ == "__main__":

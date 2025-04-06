@@ -1,7 +1,7 @@
 import time
 from xmlrpc.client import MAXINT
 
-import read_from_file
+from UI import UI
 
 
 def time_counter(func):
@@ -59,7 +59,7 @@ def branch_and_bound_recursive(way: list, distance: int, unvisited: set, matrix:
 
 
 def main() -> None:
-    matrices = read_from_file.main()
+    matrices = UI()
     for matrix in matrices:
         way, distance = branch_and_bound(matrix)
         print("Лучший маршрут:", way)
