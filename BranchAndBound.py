@@ -1,6 +1,4 @@
-import math
 import time
-from random import choices
 from xmlrpc.client import MAXINT
 
 import read_from_file
@@ -16,62 +14,56 @@ def time_counter(func):
     return wrapper
 
 
-#@time_counter
+best_distance = MAXINT
+best_way = None
+
+
+@time_counter
 def branch_and_bound(matrix: list) -> tuple:
-    n = len(matrix)
-    min_dist: int = MAXINT
+    global best_distance, best_way
+
+    best_distance = MAXINT
     best_way = None
-
-    def solve(row: list | int, visited: set, dist: int, way: list) -> None:
-        nonlocal min_dist, best_way
-        if len(way) == n:
-            dist += matrix[row][0]
-
-            if dist < min_dist:
-                min_dist = dist
-                best_way = way + [0]
-            return
-
-        for next_row in range(n):
-            if next_row not in visited:
-                solve(next_row, visited | {next_row}, dist + matrix[row][next_row], way + [next_row])
-
-    solve(0, {0}, 0, [0])
-    return best_way, min_dist
+    n = len(matrix)
+    unvisited = set(range(1, n))
+    branch_and_bound_recursive([0], 0, unvisited, matrix, n)
+    return best_way, best_distance
 
 
-def markov_chain(matrix, n, alpha: float = 1.0) -> tuple:
-    cur_state = 0
-    way = [0]
-    unvisited = set(range(n))
-    unvisited.remove(cur_state)
+def branch_and_bound_recursive(way: list, distance: int, unvisited: set, matrix: list, n: int) -> None:
+    global best_distance, best_way
 
-    while unvisited:
-        available_states = list(unvisited)
-        weights = [math.exp(-alpha * matrix[cur_state][j]) for j in available_states]
-        sum_weight = sum(weights)
-        calc_weights = [w / sum_weight for w in weights]
+    if not unvisited:
+        sum_cost = distance + matrix[way[-1]][way[0]]
+        if sum_cost < best_distance:
+            best_distance = sum_cost
+            best_way = way.copy()
+        return
 
-        next_state = choices(available_states, weights=calc_weights, k=1)[0]
-        way.append(next_state)
-        unvisited.remove(next_state)
-        cur_state = next_state
+    lower_dist = distance
+    if unvisited:
+        lower_dist += min(matrix[way[-1]][j] for j in unvisited)
+    for i in unvisited:
+        lower_dist += min(matrix[i][k] for k in range(n) if k != i)
 
-    dist = calc_distance(way, matrix)
-    return way, dist
+    if lower_dist >= best_distance:
+        return
 
-
-def calc_distance(way, matrix) -> int:
-    return sum(matrix[way[i]][way[i+1]] for i in range(len(way)-1)) + + matrix[way[-1]][way[0]]
+    for city in list(unvisited):
+        new_cost = distance + matrix[way[-1]][city]
+        way.append(city)
+        unvisited.remove(city)
+        branch_and_bound_recursive(way, new_cost, unvisited, matrix, n)
+        unvisited.add(city)
+        way.pop()
 
 
 def main() -> None:
     matrices = read_from_file.main()
     for matrix in matrices:
         way, distance = branch_and_bound(matrix)
-        # print("Лучший маршрут:", way)
-        # print("Кратчайшее расстояние:", distance)
-        print(distance)
+        print("Лучший маршрут:", way)
+        print("Кратчайшее расстояние:", distance)
 
 
 if __name__ == "__main__":
