@@ -9,7 +9,7 @@ def UI():
 
     n = int(input('Матрицы какой размерности берем? : '))
     if Path(path + f'/{n}').exists():
-        get_data(n)
+        return get_data(n)
     else:
         print("Неверный ввод. Введите число папки, которая существует")
         list_of_dirs = os.listdir(path)
