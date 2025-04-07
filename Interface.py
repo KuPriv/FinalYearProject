@@ -78,7 +78,7 @@ class MyInterface(QtWidgets.QMainWindow):
             os.makedirs(dir)
 
         for i in range(3):
-            filename = os.path.join(dir, f"cities_{i + 1}.txt")
+            filename = os.path.join(dir, f"{i + 1}.txt")
             with open(filename, "w") as f:
                 for _ in range(n):
                     x = random.uniform(0, 1000)
