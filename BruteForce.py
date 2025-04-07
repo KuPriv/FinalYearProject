@@ -2,6 +2,7 @@ import time
 from itertools import permutations
 from xmlrpc.client import MAXINT
 
+from Chain_MonteCarlo import chain_monte_ui
 from UI import UI
 
 
@@ -41,7 +42,8 @@ def main() -> None:
         way, distance = bruteforce(matrix)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
-        #print(distance)
+
+    chain_monte_ui(matrices)
 
 
 if __name__ == "__main__":

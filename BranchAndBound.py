@@ -1,6 +1,7 @@
 import time
 from xmlrpc.client import MAXINT
 
+from Chain_MonteCarlo import chain_monte_ui
 from UI import UI
 
 
@@ -64,6 +65,8 @@ def main() -> None:
         way, distance = branch_and_bound(matrix)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
+
+    chain_monte_ui(matrices)
 
 
 if __name__ == "__main__":

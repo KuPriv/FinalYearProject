@@ -1,5 +1,6 @@
 import time
 
+from Chain_MonteCarlo import chain_monte_ui
 from UI import UI
 
 
@@ -13,7 +14,7 @@ def time_counter(func):
     return wrapper
 
 
-#@time_counter
+@time_counter
 def nearest_neighbor(matrix: list) -> tuple:
     n = len(matrix)
     visited = [False] * n
@@ -35,9 +36,10 @@ def main() -> None:
     matrices = UI()
     for matrix in matrices:
         way, distance = nearest_neighbor(matrix)
-        # print("Лучший маршрут:", way)
-        # print("Кратчайшее расстояние:", distance)
-        print(distance)
+        print("Лучший маршрут:", way)
+        print("Кратчайшее расстояние:", distance)
+
+    chain_monte_ui(matrices)
 
 
 if __name__ == "__main__":

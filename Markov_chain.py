@@ -3,6 +3,7 @@ import time
 from random import choices
 from xmlrpc.client import MAXINT
 
+from Chain_MonteCarlo import chain_monte_ui
 from UI import UI
 
 
@@ -62,9 +63,10 @@ def main() -> None:
 
     for matrix in matrices:
         way, distance = solution(matrix, iters)
-        # print("Лучший маршрут:", way)
-        # print("Кратчайшее расстояние:", distance)
-        print(distance)
+        print("Лучший маршрут:", way)
+        print("Кратчайшее расстояние:", distance)
+
+    chain_monte_ui(matrices)
 
 
 if __name__ == "__main__":
