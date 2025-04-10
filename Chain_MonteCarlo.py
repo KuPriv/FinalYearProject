@@ -16,10 +16,9 @@ def calc_distance(route, matrix) -> int:
 
 
 @time_counter
-def chain_method(matrix, iters: int = 1000) -> tuple:
+def chain_method(matrix, best_way, iters: int = 100000) -> tuple:
     n = len(matrix)
-    route = list(range(n))
-    best_dist = calc_distance(route, matrix)
+    best_dist = calc_distance(best_way, matrix)
     improved = True
     iteration = 0
 
@@ -28,33 +27,34 @@ def chain_method(matrix, iters: int = 1000) -> tuple:
         iteration += 1
         for i in range(1, n - 1):
             for j in range(i + 1, n):
-                new_route = route[:i] + route[i:j+1][::-1] + route[j+1:]
-                new_dist = calc_distance(new_route, matrix)
+                new_way = best_way[:i] + best_way[i:j+1][::-1] + best_way[j+1:]
+                new_dist = calc_distance(new_way, matrix)
                 if new_dist < best_dist:
-                    route = new_route
+                    best_way = new_way
                     best_dist = new_dist
                     improved = True
                     break
             if improved:
                 break
 
-    return route, best_dist
+    return best_way, best_dist
 
 
-def chain_monte_ui(matrices) -> None:
+def chain_monte_ui(matrices, best_ways) -> None:
     s = str(input("'Хотите улучшить решение?\nВведите 'Да' или 'Нет': "))
     if s.lower() == 'да':
-        main(matrices)
+        main(matrices, best_ways)
     elif s.lower() == 'нет':
         print('Пока')
     else:
         print('Некорректный ввод.')
-        chain_monte_ui(matrices)
+        chain_monte_ui(matrices, best_ways)
 
 
-def main(matrices) -> None:
+def main(matrices, best_ways) -> None:
     print('С учетом выполнения цепного метода, полученные решения:')
-    for matrix in matrices:
-        way, distance = chain_method(matrix, iters=1000)
+    for i in range(len(matrices)):
+        matrix, best_way = matrices[i], best_ways[i]
+        way, distance = chain_method(matrix, best_way)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
