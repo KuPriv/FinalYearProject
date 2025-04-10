@@ -16,7 +16,6 @@ def UI():
         list_of_dirs = [int(x) for x in list_of_dirs]
         print('Существующие папки:')
         print(sorted(list_of_dirs))
-        UI()
 
 
 def get_data(n) -> list | None:
@@ -33,11 +32,11 @@ def read_one_file(n) -> list | None:
         return get_data_from_one_file(n, file_n)
     else:
         print('Неверный ввод.')
-        read_one_file(n)
 
 
 def main() -> None:
     UI()
+
 
 
 if __name__ == "__main__":
