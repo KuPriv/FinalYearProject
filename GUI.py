@@ -1,6 +1,6 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 import matplotlib.pyplot as plt
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QMessageBox, QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
 from matplotlib.patches import FancyArrowPatch
 
 import sys
@@ -13,12 +13,13 @@ from MonteCarlo import monte_carlo as imported_monte_carlo
 from BruteForce import bruteforce as imported_bruteforce
 from Markov_chain import solution as imported_markov_chain
 from BranchAndBound import branch_and_bound as imported_branch_and_bound
-
+from Chain_MonteCarlo import chain_method as imported_chain_method
 
 class MyInterface(QtWidgets.QMainWindow):
     def __init__(self) -> None:
         super().__init__()
         self.matrix = None
+        self.cur_plt = None
         self.setWindowTitle("Построение маршрутов")
         self.setGeometry(700, 400, 300, 200)
         self.UI()
@@ -146,7 +147,32 @@ class MyInterface(QtWidgets.QMainWindow):
         ax.set_ylabel("Y")
         ax.legend()
         ax.grid(True)
-        plt.show()
+        plt.show(block=False)
+        self.cur_plt = fig
+        self.lower()
+        QtCore.QTimer.singleShot(500, lambda: self.show_improvement_dialog(cities, way, algorithm))
+
+    def show_improvement_dialog(self, cities, way, algorithm) -> None:
+        dialog = ImprovementDialog()
+        manager = plt.get_current_fig_manager()
+        pos = manager.window.pos()
+        dialog.move(pos.x() + manager.window.width() + 10, pos.y())
+        dialog.move(self.x() + self.width() + 10, self.y())
+
+        if dialog.exec_() == QDialog.Accepted:
+            if self.cur_plt:
+                plt.close(self.cur_plt)
+            try:
+                best_way, best_dist = imported_chain_method(self.matrix, way)
+            except Exception as e:
+                QMessageBox.warning(self, "Ошибка", f"Ошибка при улучшении решения: {e}")
+                return
+
+            if 'улучш' in algorithm:
+                None
+            else:
+                algorithm += " (улучшенное)"
+            self.show_result(cities, best_way, best_dist, algorithm)
 
     def create_matrix(self, cities) -> list:
         self.matrix = self.distance_matrix(cities)
@@ -203,10 +229,33 @@ class MyInterface(QtWidgets.QMainWindow):
     def branch_and_bound(self):
         return imported_branch_and_bound(self.matrix)
 
+
+class ImprovementDialog(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Улучшить решение?")
+        self.initUI()
+
+    def initUI(self):
+        label = QLabel("Нужно ли улучшить решение?")
+        yes_button = QPushButton("Да")
+        no_button = QPushButton("Нет")
+        yes_button.clicked.connect(self.accept)
+        no_button.clicked.connect(self.reject)
+        layout = QVBoxLayout()
+        layout.addWidget(label)
+        button_layout = QHBoxLayout()
+        button_layout.addWidget(yes_button)
+        button_layout.addWidget(no_button)
+        layout.addLayout(button_layout)
+        self.setLayout(layout)
+
+
 def main():
     app = QtWidgets.QApplication(sys.argv)
     window = MyInterface()
     window.show()
+    window.lower()
     sys.exit(app.exec())
 
 
