@@ -58,7 +58,10 @@ def calc_distance(way, matrix) -> int:
 
 
 def main() -> None:
-    matrices = UI()
+    matrices = []
+    while not matrices:
+        matrices = UI()
+
     iters = 10000
 
     for matrix in matrices:

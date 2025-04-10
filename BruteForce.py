@@ -37,7 +37,10 @@ def bruteforce(matrix) -> tuple:
 
 
 def main() -> None:
-    matrices = UI()
+    matrices = []
+    while not matrices:
+        matrices = UI()
+
     for matrix in matrices:
         way, distance = bruteforce(matrix)
         print("Лучший маршрут:", way)

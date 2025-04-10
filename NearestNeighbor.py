@@ -33,7 +33,10 @@ def nearest_neighbor(matrix: list) -> tuple:
 
 
 def main() -> None:
-    matrices = UI()
+    matrices = []
+    while not matrices:
+        matrices = UI()
+
     for matrix in matrices:
         way, distance = nearest_neighbor(matrix)
         print("Лучший маршрут:", way)

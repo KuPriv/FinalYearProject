@@ -60,7 +60,10 @@ def branch_and_bound_recursive(way: list, distance: int, unvisited: set, matrix:
 
 
 def main() -> None:
-    matrices = UI()
+    matrices = []
+    while not matrices:
+        matrices = UI()
+
     for matrix in matrices:
         way, distance = branch_and_bound(matrix)
         print("Лучший маршрут:", way)
