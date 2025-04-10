@@ -33,16 +33,17 @@ def nearest_neighbor(matrix: list) -> tuple:
 
 
 def main() -> None:
-    matrices = []
+    matrices, best_ways = [], []
     while not matrices:
         matrices = UI()
 
     for matrix in matrices:
         way, distance = nearest_neighbor(matrix)
+        best_ways.append(way)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
 
-    chain_monte_ui(matrices)
+    chain_monte_ui(matrices, best_ways)
 
 
 if __name__ == "__main__":

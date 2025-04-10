@@ -60,16 +60,17 @@ def branch_and_bound_recursive(way: list, distance: int, unvisited: set, matrix:
 
 
 def main() -> None:
-    matrices = []
+    matrices, best_ways = [], []
     while not matrices:
         matrices = UI()
 
     for matrix in matrices:
         way, distance = branch_and_bound(matrix)
+        best_ways.append(way)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
 
-    chain_monte_ui(matrices)
+    chain_monte_ui(matrices, best_ways)
 
 
 if __name__ == "__main__":

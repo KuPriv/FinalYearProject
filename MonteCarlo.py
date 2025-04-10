@@ -41,16 +41,17 @@ def calc_distance(way, matrix) -> int:
 
 
 def main() -> None:
-    matrices = []
+    matrices, best_ways = [], []
     while not matrices:
         matrices = UI()
 
     for matrix in matrices:
         way, distance = monte_carlo(matrix, iters=30000)
+        best_ways.append(way)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
 
-    chain_monte_ui(matrices)
+    chain_monte_ui(matrices, best_ways)
 
 
 if __name__ == "__main__":

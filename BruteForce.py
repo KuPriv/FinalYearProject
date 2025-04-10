@@ -46,8 +46,6 @@ def main() -> None:
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
 
-    chain_monte_ui(matrices)
-
 
 if __name__ == "__main__":
     main()

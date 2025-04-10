@@ -58,7 +58,7 @@ def calc_distance(way, matrix) -> int:
 
 
 def main() -> None:
-    matrices = []
+    matrices, best_ways = [], []
     while not matrices:
         matrices = UI()
 
@@ -66,10 +66,11 @@ def main() -> None:
 
     for matrix in matrices:
         way, distance = solution(matrix, iters)
+        best_ways.append(way)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
 
-    chain_monte_ui(matrices)
+    chain_monte_ui(matrices, best_ways)
 
 
 if __name__ == "__main__":
