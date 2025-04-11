@@ -150,7 +150,8 @@ class MyInterface(QtWidgets.QMainWindow):
         plt.show(block=False)
         self.cur_plt = fig
         self.lower()
-        QtCore.QTimer.singleShot(500, lambda: self.show_improvement_dialog(cities, way, algorithm))
+        if algorithm != 'brute_force':
+            QtCore.QTimer.singleShot(500, lambda: self.show_improvement_dialog(cities, way, algorithm))
 
     def show_improvement_dialog(self, cities, way, algorithm) -> None:
         dialog = ImprovementDialog()
