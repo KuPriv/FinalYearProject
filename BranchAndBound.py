@@ -1,7 +1,6 @@
+import sys
 import time
-from xmlrpc.client import MAXINT
 
-from Chain_MonteCarlo import chain_monte_ui
 from UI import UI
 
 
@@ -15,48 +14,60 @@ def time_counter(func):
     return wrapper
 
 
-best_distance = MAXINT
-best_way = None
-
-
 @time_counter
 def branch_and_bound(matrix: list) -> tuple:
-    global best_distance, best_way
-
-    best_distance = MAXINT
+    best_dist = sys.maxsize
     best_way = None
     n = len(matrix)
-    unvisited = set(range(1, n))
-    branch_and_bound_recursive([0], 0, unvisited, matrix, n)
-    return best_way, best_distance
+
+    def calc_lower_bound(node: int, unvisited: set[int], dist: int) -> int:
+        lower_bound = dist
+
+        if unvisited:
+            lower_bound += min(matrix[node][j] for j in unvisited)
+
+        for city in unvisited:
+            min_dist = sys.maxsize
+            for next_city in range(n):
+                if next_city != city and (next_city in unvisited or next_city == 0):
+                    min_dist = min(min_dist, matrix[city][next_city])
+
+            if min_dist != sys.maxsize:
+                lower_bound += min_dist
+
+        return lower_bound
 
 
-def branch_and_bound_recursive(way: list, distance: int, unvisited: set, matrix: list, n: int) -> None:
-    global best_distance, best_way
+    def branch_and_bound_recursive(way: list, dist: int, unvisited: set) -> None:
+        nonlocal best_dist, best_way
 
-    if not unvisited:
-        sum_cost = distance + matrix[way[-1]][way[0]]
-        if sum_cost < best_distance:
-            best_distance = sum_cost
-            best_way = way.copy()
-        return
+        if not unvisited:
+            cost = dist + matrix[way[-1]][way[0]]
+            if cost < best_dist:
+                best_dist = cost
+                best_way = way.copy()
+            return
 
-    lower_dist = distance
-    if unvisited:
-        lower_dist += min(matrix[way[-1]][j] for j in unvisited)
-    for i in unvisited:
-        lower_dist += min(matrix[i][k] for k in range(n) if k != i)
+        node = way[-1]
+        lower_bound = calc_lower_bound(node, unvisited, dist)
 
-    if lower_dist >= best_distance:
-        return
+        if lower_bound >= best_dist:
+            return
 
-    for city in list(unvisited):
-        new_cost = distance + matrix[way[-1]][city]
-        way.append(city)
-        unvisited.remove(city)
-        branch_and_bound_recursive(way, new_cost, unvisited, matrix, n)
-        unvisited.add(city)
-        way.pop()
+        for city in list(unvisited):
+            new_cost = dist + matrix[way[-1]][city]
+            if new_cost >= best_dist:
+                continue
+
+            way.append(city)
+            unvisited.remove(city)
+            branch_and_bound_recursive(way, new_cost, unvisited)
+            unvisited.add(city)
+            way.pop()
+
+    branch_and_bound_recursive([0], 0, set(range(1, n)))
+
+    return best_way, best_dist
 
 
 def main() -> None:
@@ -69,8 +80,6 @@ def main() -> None:
         best_ways.append(way)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
-
-    chain_monte_ui(matrices, best_ways)
 
 
 if __name__ == "__main__":
