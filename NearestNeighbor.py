@@ -1,6 +1,6 @@
 import time
 
-from Chain_MonteCarlo import chain_monte_ui
+from Chain_2opt import chain_monte_ui
 from UI import UI
 
 

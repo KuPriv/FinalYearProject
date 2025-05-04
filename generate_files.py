@@ -1,12 +1,16 @@
 import os
+import sys
+from pathlib import Path
 from random import randint
 
 
 def write_in_file():
     matrix_size: int = get_matrix_size()
     dir_name: str = 'generated_files/' + str(matrix_size)
+    if Path(dir_name).exists():
+        print('Папка уже существует. Не трожь.')
+        sys.exit()
     os.makedirs(dir_name, exist_ok=True)
-
     info: int = type_selection_of_matrix()
     count_of_files: int = 5
 

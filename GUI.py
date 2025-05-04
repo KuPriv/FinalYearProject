@@ -13,7 +13,7 @@ from MonteCarlo import monte_carlo as imported_monte_carlo
 from BruteForce import bruteforce as imported_bruteforce
 from Markov_chain import solution as imported_markov_chain
 from BranchAndBound import branch_and_bound as imported_branch_and_bound
-from Chain_MonteCarlo import chain_method as imported_chain_method
+from Chain_2opt import chain_method as imported_chain_method
 
 class MyInterface(QtWidgets.QMainWindow):
     def __init__(self) -> None:
@@ -150,7 +150,7 @@ class MyInterface(QtWidgets.QMainWindow):
         plt.show(block=False)
         self.cur_plt = fig
         self.lower()
-        if algorithm != 'brute_force':
+        if algorithm != 'brute_force' and 'улучш' not in algorithm:
             QtCore.QTimer.singleShot(500, lambda: self.show_improvement_dialog(cities, way, algorithm))
 
     def show_improvement_dialog(self, cities, way, algorithm) -> None:

@@ -3,7 +3,7 @@ import time
 from random import choices
 from xmlrpc.client import MAXINT
 
-from Chain_MonteCarlo import chain_monte_ui
+from Chain_2opt import chain_monte_ui
 from UI import UI
 
 

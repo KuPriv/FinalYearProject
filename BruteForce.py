@@ -2,7 +2,6 @@ import time
 from itertools import permutations
 from xmlrpc.client import MAXINT
 
-from Chain_MonteCarlo import chain_monte_ui
 from UI import UI
 
 
