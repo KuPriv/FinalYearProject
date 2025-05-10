@@ -1,6 +1,6 @@
+import sys
 import time
 from random import shuffle
-from xmlrpc.client import MAXINT
 
 from Chain_2opt import chain_monte_ui
 from UI import UI
@@ -20,7 +20,7 @@ def time_counter(func):
 def monte_carlo(matrix, iters: int) -> tuple:
     n = len(matrix)
     cities = list(range(n))
-    min_dist: int = MAXINT
+    min_dist: int = sys.maxsize
     best_way = None
 
     for _ in range(iters):

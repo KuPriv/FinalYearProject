@@ -1,6 +1,6 @@
+import sys
 import time
 from itertools import permutations
-from xmlrpc.client import MAXINT
 
 from UI import UI
 
@@ -23,7 +23,7 @@ def time_counter(func):
 def bruteforce(matrix) -> tuple:
     n: int = len(matrix)
     cities = list(range(n))
-    min_dist: int = MAXINT
+    min_dist: int = sys.maxsize
     best_way = None
 
     for combination in permutations(cities):

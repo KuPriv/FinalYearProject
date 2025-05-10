@@ -1,7 +1,7 @@
 import math
+import sys
 import time
 from random import choices
-from xmlrpc.client import MAXINT
 
 from Chain_2opt import chain_monte_ui
 from UI import UI
@@ -20,7 +20,7 @@ def time_counter(func):
 @time_counter
 def solution(matrix: list, iters: int) -> tuple:
     n: int = len(matrix)
-    min_dist: int = MAXINT
+    min_dist: int = sys.maxsize
     best_way = None
 
     for _ in range(iters):
