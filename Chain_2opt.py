@@ -58,3 +58,7 @@ def main(matrices, best_ways) -> None:
         way, distance = chain_method(matrix, best_way)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
+
+
+if __name__ == "__main__":
+    main()
