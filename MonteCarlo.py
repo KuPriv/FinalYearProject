@@ -25,7 +25,7 @@ def monte_carlo(matrix, iters: int) -> tuple:
 
     for _ in range(iters):
         way = cities[:]
-        # shuffle - из библиотеки random, работает быстрее, так как локальная область видимости
+        # shuffle - функция генерации случайных перестановок, импортируем локально для более быстрого выполнения.
         shuffle(way)
         way[way.index(0)], way[0] = way[0], way[way.index(0)]
         cur_dist = calc_distance(way, matrix)
