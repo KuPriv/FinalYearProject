@@ -11,14 +11,13 @@ def write_in_file():
         print('Папка уже существует. Не трожь.')
         sys.exit()
     os.makedirs(dir_name, exist_ok=True)
-    info: int = type_selection_of_matrix()
     count_of_files: int = 5
 
     for number_of_file in range(count_of_files):
         try:
             with open(f'{dir_name}/{number_of_file + 1}.txt', mode='w+', encoding='utf-8') as file:
                 # можно генерировать симметричную и ассиметричная матрицу
-                matrix: list[list[int]] = generate_matrix(matrix_size, info)
+                matrix: list[list[int]] = generate_matrix(matrix_size)
                 for line_index in range(len(matrix)):
                     line_to_str: list[str] = [str(n) for n in matrix[line_index]]
                     line_to_str: str = " ".join (line_to_str)
@@ -34,11 +33,8 @@ def get_matrix_size() -> int:
     return n
 
 
-def type_selection_of_matrix() -> int:
-    return int(input('Какой тип матрицы?\n1 - Ассиметричная\n2 - Симметричная\nВведите цифру: '))
-
-
-def generate_matrix(matrix_size: int, info: int) -> list[list[int]] | None:
+def generate_matrix(matrix_size: int) -> list[list[int]] | None:
+    info: int = type_selection_of_matrix()
     if info == 1:
         return generate_asymmetrical_matrix(matrix_size)
     elif info == 2:
@@ -46,6 +42,11 @@ def generate_matrix(matrix_size: int, info: int) -> list[list[int]] | None:
     else:
         print("Вводить только цифры '1' и '2' ")
         generate_matrix(matrix_size)
+
+
+def type_selection_of_matrix() -> int:
+    return int(input('Какой тип матрицы?\n1 - Ассиметричная\n2 - Симметричная\nВведите цифру: '))
+
 
 
 def generate_asymmetrical_matrix(n: int) -> list[list[int]]:
