@@ -12,12 +12,13 @@ def write_in_file():
         sys.exit()
     os.makedirs(dir_name, exist_ok=True)
     count_of_files: int = 5
+    type_of_matrix: int = choose_type_of_matrix()
 
     for number_of_file in range(count_of_files):
         try:
             with open(f'{dir_name}/{number_of_file + 1}.txt', mode='w+', encoding='utf-8') as file:
                 # можно генерировать симметричную и ассиметричная матрицу
-                matrix: list[list[int]] = generate_matrix(matrix_size)
+                matrix: list[list[int]] = generate_matrix(matrix_size, type_of_matrix)
                 for line_index in range(len(matrix)):
                     line_to_str: list[str] = [str(n) for n in matrix[line_index]]
                     line_to_str: str = " ".join (line_to_str)
@@ -33,20 +34,26 @@ def get_matrix_size() -> int:
     return n
 
 
-def generate_matrix(matrix_size: int) -> list[list[int]] | None:
+def choose_type_of_matrix() -> int | None:
     info: int = type_selection_of_matrix()
     if info == 1:
-        return generate_asymmetrical_matrix(matrix_size)
+        return 1
     elif info == 2:
-        return generate_symmetrical_matrix(matrix_size)
+        return 2
     else:
         print("Вводить только цифры '1' и '2' ")
-        generate_matrix(matrix_size)
+        choose_type_of_matrix()
+
+
+def generate_matrix(matrix_size: int, type_of_matrix: None | int) -> list[list[int]]:
+    if type_of_matrix == 1:
+        return generate_asymmetrical_matrix(matrix_size)
+    else:
+        return generate_symmetrical_matrix(matrix_size)
 
 
 def type_selection_of_matrix() -> int:
     return int(input('Какой тип матрицы?\n1 - Ассиметричная\n2 - Симметричная\nВведите цифру: '))
-
 
 
 def generate_asymmetrical_matrix(n: int) -> list[list[int]]:
