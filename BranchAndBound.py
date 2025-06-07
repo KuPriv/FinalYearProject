@@ -78,6 +78,7 @@ def main() -> None:
     for matrix in matrices:
         way, distance = branch_and_bound(matrix)
         best_ways.append(way)
+        way.append(0)
         print("Лучший маршрут:", way)
         print("Кратчайшее расстояние:", distance)
 
